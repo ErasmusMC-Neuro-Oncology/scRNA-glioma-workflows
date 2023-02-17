@@ -1,0 +1,8 @@
+---
+title: "scRNA-glioma-workflows - van Hijfte dataset - Sample Y"
+author: "Youri Hoogstrate"
+date: "`r BiocStyle::doc_date()`"
+---
+
+
+obj__van_hijfte__sample_y <- Seurat::Read10X(data.dir = '')
