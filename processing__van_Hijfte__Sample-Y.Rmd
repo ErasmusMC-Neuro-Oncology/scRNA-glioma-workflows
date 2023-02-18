@@ -1,8 +1,15 @@
 ---
-title: "scRNA-glioma-workflows - van Hijfte dataset - Sample Y"
-author: "Youri Hoogstrate"
+title: "scRNA-glioma-workflows: van Hijfte dataset - Sample Y"
+author: 
+  - Youri Hoogstrate
+  - Levi van Hijfte
+  - Santoesha A. Ghisai
 date: "`r BiocStyle::doc_date()`"
+version: "`r source('version.R'); project_version`"
 ---
 
+```{r}
+sample_name <- 'van Hijfte dataset - Sample Y'
+```
 
-obj__van_hijfte__sample_y <- Seurat::Read10X(data.dir = '')
+

@@ -1,2 +1,14 @@
 celltype,markers
 neuron,RBFOX3
+oligodendrocyte,TMEM144
+endothelial,ABCB1
+endothelial,CD34
+endothelial,FLT4
+endothelial,TIE1
+endothelial,ITGA1
+TAM,CD163
+TAM,P2RY12
+TAM,CD14
+TAM,ITGB2
+TAM,C1QC
+
