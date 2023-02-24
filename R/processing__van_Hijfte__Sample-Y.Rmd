@@ -1,0 +1,30 @@
+---
+title: "scRNA-glioma-workflows: van Hijfte dataset - Sample Y"
+author: 
+  - Youri Hoogstrate
+  - Levi van Hijfte
+  - Santoesha A. Ghisai
+date: "`r BiocStyle::doc_date()`"
+---
+
+```{r}
+source('R/function__remove_doublets.R')
+source('R/function__annotate_percentage_MT-RNA.R')
+```
+
+
+```{r}
+sample_name <- 'van Hijfte dataset - Sample Y'
+obj__van_hijfte__sample_y <- Seurat::Read10X(data.dir = "data/van_Hijfte__Sample_Y/filtered_feature_bc_matrix") |> 
+  Seurat::CreateSeuratObject(min.cells = 3, min.features = 200, project = sample_name)
+```
+
+Adds fraction MT expression - should be put in a function
+Same should be done for rRNA
+
+```{r}
+obj__van_hijfte__sample_y <- annotate_read_fractions(obj__van_hijfte__sample_y) # percentage MT, Ribo RNA and MALAT1
+
+Seurat::VlnPlot(object = obj__van_hijfte__sample_y, features = c("nFeature_RNA", "nCount_RNA", "percentage_mitochondrial_reads"), ncol = 3, pt.size = 0.01, group.by = "orig.ident") 
+```
+
