@@ -9,7 +9,7 @@ date: "`r BiocStyle::doc_date()`"
 
 ```{r}
 source('R/function__remove_doublets.R')
-source('R/function__annotate_percentage_MT-RNA.R')
+source('R/function__annotate_read_fractions.R')
 ```
 
 
@@ -25,6 +25,6 @@ Same should be done for rRNA
 ```{r}
 obj__van_hijfte__sample_y <- annotate_read_fractions(obj__van_hijfte__sample_y) # percentage MT, Ribo RNA and MALAT1
 
-Seurat::VlnPlot(object = obj__van_hijfte__sample_y, features = c("nFeature_RNA", "nCount_RNA", "percentage_mitochondrial_reads"), ncol = 3, pt.size = 0.01, group.by = "orig.ident") 
+Seurat::VlnPlot(object = obj__van_hijfte__sample_y, features = c("nFeature_RNA", "nCount_RNA", "percentage_mitochondrial_reads", "percentage_ribosomal_reads", "percentage_MALAT1_reads"), ncol = 3, pt.size = 0.01, group.by = "orig.ident") 
 ```
 

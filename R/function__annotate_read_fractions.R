@@ -1,34 +1,32 @@
 #!/usr/bin/env R
 
 
-seurat_object = obj__van_hijfte__sample_y
 
 annotate_read_fractions <- function(seurat_object) {
-  apply(
-    c('percentage_mitochondrial_reads'='^MT-',
-      'percentage_ribosomal_reads'='^RPL') |> 
-      data.frame(regex = _) |> 
-      tibble::rownames_to_column('slot')
-    , MARGIN=1, FUN=function(val) {
-      
-      slot = val[1]
-      regex = val[2]
-
-      target_features <- seurat_object |>
-        row.names() |>
-        data.frame(hugo_symbol = _) |>
-        dplyr::mutate(status = grepl(regex, hugo_symbol)) |>
-        (function(.) {
-          assertthat::assert_that(sum(.$status) > 1) # must contain at least one gene
-          return(.)
-        })()
-       
-      reads_total <- Matrix::colSums(Seurat::GetAssayData(object = seurat_object, slot="counts"))
-      reads_target <- Matrix::colSums(Seurat::GetAssayData(object = seurat_object, slot="counts")[target_features$status,])
-      
-      seurat_object[[slot]] <- reads_target / reads_total * 100.0
-    }
-  )
+  loop <- c("percentage_mitochondrial_reads" = "^MT-",
+    "percentage_ribosomal_reads" = "^RPL")
+  
+  for(slot in names(loop)) {
+    regex <- loop[[slot]]
+    print(slot)
+    print(regex)
+    print("")
+    
+    
+    target_features <- seurat_object |>
+      row.names() |>
+      data.frame(hugo_symbol = _) |>
+      dplyr::mutate(status = grepl(regex, hugo_symbol)) |>
+      (function(.) {
+        assertthat::assert_that(sum(.$status) > 1) # must contain at least one gene
+        return(.)
+      })()
+    
+    reads_total <- Matrix::colSums(Seurat::GetAssayData(object = seurat_object, slot="counts"))
+    reads_target <- Matrix::colSums(Seurat::GetAssayData(object = seurat_object, slot="counts")[target_features$status,])
+    
+    seurat_object[[slot]] <- reads_target / reads_total * 100.0
+  }
   
   
   # colSums crashes with only 1 column, so do MALAT1 separately
